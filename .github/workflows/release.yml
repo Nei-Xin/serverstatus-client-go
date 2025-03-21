@@ -1,0 +1,52 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.19
+
+    - name: Get version from tag
+      id: get_version
+      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+
+    - name: Build binaries
+      run: |
+        mkdir -p release
+        
+        # Linux AMD64
+        GOOS=linux GOARCH=amd64 go build -o release/serverstatus-client-linux-amd64
+        cd release && tar -czvf serverstatus-client-linux-amd64-${{ steps.get_version.outputs.VERSION }}.tar.gz serverstatus-client-linux-amd64 && cd ..
+        
+        # Linux 386
+        GOOS=linux GOARCH=386 go build -o release/serverstatus-client-linux-386
+        cd release && tar -czvf serverstatus-client-linux-386-${{ steps.get_version.outputs.VERSION }}.tar.gz serverstatus-client-linux-386 && cd ..
+        
+        # Linux ARM
+        GOOS=linux GOARCH=arm go build -o release/serverstatus-client-linux-arm
+        cd release && tar -czvf serverstatus-client-linux-arm-${{ steps.get_version.outputs.VERSION }}.tar.gz serverstatus-client-linux-arm && cd ..
+        
+        # Linux ARM64
+        GOOS=linux GOARCH=arm64 go build -o release/serverstatus-client-linux-arm64
+        cd release && tar -czvf serverstatus-client-linux-arm64-${{ steps.get_version.outputs.VERSION }}.tar.gz serverstatus-client-linux-arm64 && cd ..
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          release/*.tar.gz
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
