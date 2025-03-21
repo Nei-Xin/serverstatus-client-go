@@ -19,8 +19,8 @@ type Configuration struct {
 // DefaultConfig returns the default configuration
 func DefaultConfig() *Configuration {
     return &Configuration{
-        Server:               "server-status.zzii.de",
-        User:                 "s12",
+        Server:               "127.0.0.1",
+        User:                 "s01",
         Password:             "USER_DEFAULT_PASSWORD",
         Port:                 35601,
         CU:                   "cu.tz.zzii.de",
