@@ -32,7 +32,7 @@ jobs:
           echo "VERSION=dev-$(date +%Y%m%d)" >> $GITHUB_ENV
         fi
 
-    - name: Build binaries
+        - name: Build binaries
       run: |
         mkdir -p release
         
@@ -40,20 +40,20 @@ jobs:
         go mod tidy
         
         # Linux AMD64
-        GOOS=linux GOARCH=amd64 go build -v -o release/serverstatus-client-linux-amd64 .
-        cd release && tar -czvf "client-linux-amd64-$VERSION.tar.gz" serverstatus-client-linux-amd64 && cd ..
+        GOOS=linux GOARCH=amd64 go build -v -o release/client-linux-amd64 .
+        cd release && tar -czvf "client-linux-amd64-$VERSION.tar.gz" client-linux-amd64 && cd ..
         
         # Linux 386
-        GOOS=linux GOARCH=386 go build -v -o release/serverstatus-client-linux-386 .
-        cd release && tar -czvf "client-linux-386-$VERSION.tar.gz" serverstatus-client-linux-386 && cd ..
+        GOOS=linux GOARCH=386 go build -v -o release/client-linux-386 .
+        cd release && tar -czvf "client-linux-386-$VERSION.tar.gz" client-linux-386 && cd ..
         
         # Linux ARM
-        GOOS=linux GOARCH=arm go build -v -o release/serverstatus-client-linux-arm .
-        cd release && tar -czvf "client-linux-arm-$VERSION.tar.gz" serverstatus-client-linux-arm && cd ..
+        GOOS=linux GOARCH=arm go build -v -o release/client-linux-arm .
+        cd release && tar -czvf "client-linux-arm-$VERSION.tar.gz" client-linux-arm && cd ..
         
         # Linux ARM64
-        GOOS=linux GOARCH=arm64 go build -v -o release/serverstatus-client-linux-arm64 .
-        cd release && tar -czvf "client-linux-arm64-$VERSION.tar.gz" serverstatus-client-linux-arm64 && cd ..
+        GOOS=linux GOARCH=arm64 go build -v -o release/client-linux-arm64 .
+        cd release && tar -czvf "client-linux-arm64-$VERSION.tar.gz" client-linux-arm64 && cd ..
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
