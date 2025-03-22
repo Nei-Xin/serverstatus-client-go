@@ -41,19 +41,19 @@ jobs:
         
         # Linux AMD64
         GOOS=linux GOARCH=amd64 go build -v -o release/serverstatus-client-linux-amd64 .
-        cd release && tar -czvf "serverstatus-client-linux-amd64-$VERSION.tar.gz" serverstatus-client-linux-amd64 && cd ..
+        cd release && tar -czvf "client-linux-amd64-$VERSION.tar.gz" serverstatus-client-linux-amd64 && cd ..
         
         # Linux 386
         GOOS=linux GOARCH=386 go build -v -o release/serverstatus-client-linux-386 .
-        cd release && tar -czvf "serverstatus-client-linux-386-$VERSION.tar.gz" serverstatus-client-linux-386 && cd ..
+        cd release && tar -czvf "client-linux-386-$VERSION.tar.gz" serverstatus-client-linux-386 && cd ..
         
         # Linux ARM
         GOOS=linux GOARCH=arm go build -v -o release/serverstatus-client-linux-arm .
-        cd release && tar -czvf "serverstatus-client-linux-arm-$VERSION.tar.gz" serverstatus-client-linux-arm && cd ..
+        cd release && tar -czvf "client-linux-arm-$VERSION.tar.gz" serverstatus-client-linux-arm && cd ..
         
         # Linux ARM64
         GOOS=linux GOARCH=arm64 go build -v -o release/serverstatus-client-linux-arm64 .
-        cd release && tar -czvf "serverstatus-client-linux-arm64-$VERSION.tar.gz" serverstatus-client-linux-arm64 && cd ..
+        cd release && tar -czvf "client-linux-arm64-$VERSION.tar.gz" serverstatus-client-linux-arm64 && cd ..
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
