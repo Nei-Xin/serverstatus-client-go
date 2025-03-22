@@ -32,6 +32,7 @@ jobs:
 
       - name: Build binaries
         run: |
+          rm -rf release
           mkdir -p release
           
           # 设置正确的模块路径
